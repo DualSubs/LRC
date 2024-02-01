@@ -61,16 +61,16 @@ export default class LRCs {
 		let index1 = 0, index2 = 0;
 		const length1 = lyric1.length, length2 = lyric2.length;
 		while (index1 < length1 && index2 < length2) {
-			//console.log(`🚧 调试信息, index1/length1: ${index1}/${length1}, index2/length2: ${index2}/${length2}`, "");
+			console.log(`🚧 调试信息, index1/length1: ${index1}/${length1}, index2/length2: ${index2}/${length2}`, "");
 			const timeStamp1 = lyric1[index1].startTimeMs, timeStamp2 = lyric2[index2].startTimeMs;
-			//console.log(`🚧 调试信息, timeStamp1: ${timeStamp1}, timeStamp2: ${timeStamp2}`, "");
+			console.log(`🚧 调试信息, timeStamp1: ${timeStamp1}, timeStamp2: ${timeStamp2}`, "");
 			if (timeStamp1 === timeStamp2) lyric1[index1].twords = lyric2[index2]?.words ?? "";
 			else if (Math.abs(timeStamp1 - timeStamp2) <= tolerance) lyric1[index1].twords = lyric2[index2]?.words ?? "";
 			if (timeStamp2 > timeStamp1) index1++
 			else if (timeStamp2 < timeStamp1) index2++
 			else { index1++; index2++ };
 		};
-		//console.log(`✅ LRC.combineSpotify, combineLyric: ${JSON.stringify(lyric1)}`, "");
+		console.log(`✅ LRC.combineSpotify, combineLyric: ${JSON.stringify(lyric1)}`, "");
 		return lyric1;
 	};
 
