@@ -1,14 +1,11 @@
 export default class LRCs {
-	constructor(opts) {
-		this.name = "LRC v0.5.3";
-		this.opts = opts;
-		this.newLine = "\n";
-		this.tolerance = 1000;
-	};
+	static name = "LRC";
+	static version = "0.5.4";
+	static about = () => console.log(`\n🟧 ${this.name} v${this.version}\n`);
 
-	toSpotify(lrc = "") {
+	static toSpotify(lrc = "", options = { lineBreak: "\n" }) {
 		console.log(`☑️ LRC.toSpotify`, "");
-		let lyric = lrc?.split?.(this.newLine)?.filter?.(Boolean)?.map?.(line => {
+		let lyric = lrc?.split?.(options.lineBreak)?.filter?.(Boolean)?.map?.(line => {
 			const Line = {
 				"startTimeMs": 0,
 				"words": "",
@@ -52,11 +49,11 @@ export default class LRCs {
 		return lyric;
 	};
 
-	fromSpotify(lyric = []) {
+	static fromSpotify(lyric = []) {
 		console.log(`☑️ LRC.fromSpotify`, "");
 	};
 
-	combineSpotify(lyric1 = [], lyric2 = [], tolerance = this.tolerance) {
+	static combineSpotify(lyric1 = [], lyric2 = [], options = { tolerance: 1000 }) {
 		console.log(`☑️ LRC.combineSpotify`, "");
 		let index1 = 0, index2 = 0;
 		const length1 = lyric1.length, length2 = lyric2.length;
@@ -65,7 +62,7 @@ export default class LRCs {
 			const timeStamp1 = lyric1[index1].startTimeMs, timeStamp2 = lyric2[index2].startTimeMs;
 			console.log(`🚧 调试信息, timeStamp1: ${timeStamp1}, timeStamp2: ${timeStamp2}`, "");
 			if (timeStamp1 === timeStamp2) lyric1[index1].twords = lyric2[index2]?.words ?? "";
-			else if (Math.abs(timeStamp1 - timeStamp2) <= tolerance) lyric1[index1].twords = lyric2[index2]?.words ?? "";
+			else if (Math.abs(timeStamp1 - timeStamp2) <= options.tolerance) lyric1[index1].twords = lyric2[index2]?.words ?? "";
 			if (timeStamp2 > timeStamp1) index1++
 			else if (timeStamp2 < timeStamp1) index2++
 			else { index1++; index2++ };
@@ -74,7 +71,7 @@ export default class LRCs {
 		return lyric1;
 	};
 
-	separateSpotify(lyric = []) {
+	static separateSpotify(lyric = []) {
 		console.log(`☑️ LRC.separateSpotify`, "");
 		let separateLyric = lyric.map(line => {
 			let line1 = {
